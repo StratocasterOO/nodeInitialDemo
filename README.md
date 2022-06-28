@@ -1,6 +1,8 @@
 
 # Node Initial Project
 
+**Nota: aquesta és la branca dev_teams**
+
 ### Project Structure
 
 Main structure of node.js project. Folders / files:
