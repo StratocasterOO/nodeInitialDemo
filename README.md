@@ -1,6 +1,8 @@
 
 # Node Initial Project
 
+**Nota: aquesta és la branca api-rest**
+
 ### Project Structure
 
 Main structure of node.js project. Folders / files:
