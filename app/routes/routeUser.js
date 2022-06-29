@@ -1,5 +1,5 @@
 const express = require('express');
-const routerUser = express();
+const routerUser = express.Router();
 
 routerUser.get('/', function(req,res){
   const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl; 
