@@ -1,9 +1,23 @@
 const express = require("express");
-const upload = require("../services/upload");
-const { uploadImage, getImages } = require("../controller/appController");
-const router = express.Router();
-// /api/images
-router.get("/images", getImages);
-// /api/upload
-router.post("/upload", upload.single("picture"), uploadImage);
-module.exports = router;
+const path = require("path");
+const uploadImage = require("../helpers/helper");
+
+const routerUpload = express.Router();
+
+/* routerUpload.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
+routerUpload.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../helpers/upload.html'))
+}) */
+
+routerUpload.post('/', uploadImage.single('image'), (req, res, next) => {
+  try {
+      return res.status(201).json({
+          message: 'File uploaded successfully'
+      });
+  } catch (error) {
+      console.log(error);
+  }
+});
+
+module.exports = routerUpload;
