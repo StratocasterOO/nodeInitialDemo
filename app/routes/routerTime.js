@@ -2,18 +2,13 @@ const express = require('express');
 const moment = require('moment')
 const routerTime = express.Router();
 
-const requestTime = function (req, res, next) {
+const userTime = function (req, res) {
   req.requestTime = Date.now();
-  next();
-};
+  const user = req.body.name
+  const date = moment(req.requestTime).format('MMMM d, YYYY')
+  res.json({ user, date })
+}
 
-routerTime.use(requestTime);
-
-routerTime.get('/', function (req, res) {
-  const responseText = `${req.body.name} requested at: ${moment(req.requestTime).format('MMMM d, YYYY')} `;
-  res.send(responseText);
-  console.log(req.headers.authorization)
-});
-
+routerTime.post('/', userTime);
 
 module.exports = routerTime

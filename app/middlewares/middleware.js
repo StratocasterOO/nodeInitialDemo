@@ -1,6 +1,33 @@
 const noCacheMiddleware = (req, res ,next) => {
   try {
-    res.send('Cache-control', 'no-cache')
+    res.set('Cache-control', 'no-cache')
     next()
-  } catch (error) { console.log(error) }
+  } catch (err) { next(err) }
 }
+
+const authentication = ( req, res, next ) => {
+  
+  const authHeader = req.headers.authorization;
+  if(!authHeader){
+    const err = new Error("you could not be authorized");
+      err.status = 401;
+      next(err);
+      return;
+  }
+  //console.log('authHeader :'+authHeader);
+
+const auth = new Buffer.from(authHeader.split(' ')[1], 'base64').toString().split(':');
+const user = auth[0];
+const pass = auth[1];
+  if (user == 'admin' && pass =='12345') {
+      next();
+
+  }else{
+    const err = new Error("you could not be authorized");
+      err.status = 401;
+      next(err);
+
+  }
+}
+
+module.exports = { noCacheMiddleware, authentication}
