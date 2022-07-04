@@ -14,9 +14,10 @@ const authentication = ( req, res, next ) => {
       next(err);
       return;
   }
-  //console.log('authHeader :'+authHeader);
+//console.log('authHeader :'+authHeader);
 
 const auth = new Buffer.from(authHeader.split(' ')[1], 'base64').toString().split(':');
+//console.log(auth)
 const user = auth[0];
 const pass = auth[1];
   if (user == 'admin' && pass =='12345') {
