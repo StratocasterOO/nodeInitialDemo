@@ -6,7 +6,7 @@ destination: (req, file, cb) => {
   cb(null, "uploads");
   },
   filename: (req, file, cb) => {
-  cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname) );
+  cb(null, file.fieldname + path.extname(file.originalname) );
   },
 });
   
@@ -23,6 +23,6 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const uploadImage = multer({ storage, fileFilter });
+const uploadImage = multer({ storage: storage, fileFilter: fileFilter });
 
 module.exports = uploadImage;

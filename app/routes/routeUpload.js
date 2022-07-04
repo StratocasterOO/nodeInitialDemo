@@ -1,5 +1,5 @@
 const express = require("express");
-const path = require("path");
+
 const uploadImage = require("../helpers/helper");
 
 const routerUpload = express.Router();
