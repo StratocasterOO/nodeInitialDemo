@@ -3,11 +3,11 @@ const jwt = require("jsonwebtoken");
 const JWTAuthentication = async( req, res, next ) => {
 
     try {
-        const token = req.header( "x-auth-token" );
-        console.log(req.header, token)
+        const token = req.header( 'Authorization' ).slice(7);
+        //console.log( token)
         const decoded = jwt.verify( token, process.env.SECRET );
-        console.log( decoded );
-        req.user = decoded;
+        //console.log( decoded );
+        //req.user = decoded;
         next() 
         
     } catch (error) {

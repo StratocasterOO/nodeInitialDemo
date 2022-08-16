@@ -17,7 +17,7 @@ function successRateResult() {
   const wonGames = this.gamesPlayed.filter( obj => obj.gameWon === true );
   const totalGames = this.gamesPlayed.length;
 
-  const success = ((wonGames.length / totalGames) * 100);
+  const success = Math.floor( ((wonGames.length / totalGames) * 100) * 100) / 100;
   
   return success;
 }

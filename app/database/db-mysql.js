@@ -18,10 +18,11 @@ const connectDB = async () => {
     // Create database if it does not exist/
 
     const connection = await mysql.createConnection({
-      host, port, user: username, password,
+      host, port, user: username, password, 
     });
+    
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
-    // ************** */
+    /* ************** */
     await sequelize.sync({ force: false });
     console.log('Connection to mySQL-DB has been established successfully.');
   } catch (error) {

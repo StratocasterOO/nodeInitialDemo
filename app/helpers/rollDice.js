@@ -4,7 +4,9 @@ const rollDice = () => {
     
     const gameWon = ( ( dice1 + dice2 ) === 7 ) ? true : false;
 
-    return { dice1, dice2, gameWon }; 
+    const result = { dice1, dice2, gameWon }
+
+    return result; 
   };
   
   module.exports = rollDice;

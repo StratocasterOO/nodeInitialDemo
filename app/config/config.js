@@ -1,7 +1,7 @@
 require('dotenv').config();
 
-const MONGODB_URI = process.env.MONGODB_URI
-const PORT = process.env.PORT
+const MONGODB_URI = process.env.MONGODB_URI;
+const PORT = process.env.PORT;
 
 const mysqlConfig = {
     port: process.env.MYSQL_PORT,
@@ -15,10 +15,10 @@ let dbENV
 let controllersENV
 
 if( process.env.NODE_ENV === 'mongo' ) {
-    dbENV = '../database/db-mongo';
+    dbENV = './database/db-mongo';
     controllersENV = '../controllers/mongo-controllers';
 } else if (process.env.NODE_ENV === 'mysql') {
-    dbENV = '../database/db-mysql';
+    dbENV = './database/db-mysql';
     controllersENV = '../controllers/mysql-controllers';
 }
 

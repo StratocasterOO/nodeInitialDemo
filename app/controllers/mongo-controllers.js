@@ -60,7 +60,7 @@ const playGame = async (req, res) => {
 
     try {
 
-        const userFound = await Users.findbyId( userId )
+        const userFound = await Users.findById( userId )
         if ( ! userFound ) {
             return res.status( 404 ).json( { message: "User not found" } );
         }
@@ -80,7 +80,7 @@ const deleteGame = async (req, res) => {
 
     try {
 
-        const userFound = await Users.findbyId( userId )
+        const userFound = await Users.findById( userId )
         if ( ! userFound ) {
             return res.status( 404 ).json( { message: "User not found" } );
         }
@@ -88,7 +88,7 @@ const deleteGame = async (req, res) => {
         userFound.gamesPlayed = [];
         userFound.successRate = 0;
         await userFound.save();
-        res.status( 201 ).json({ message: "Games delete" });
+        res.status( 201 ).json({ message: "Games deleted" });
 
     } catch (err) { res.status( 500 ).json( { error: err } ); }
 }
@@ -100,7 +100,7 @@ const listGamesPlayer = async (req, res) => {
 
     try {
 
-        const userFound = await Users.findbyId( userId )
+        const userFound = await Users.findById( userId )
         if ( ! userFound ) {
             return res.status( 404 ).json( { message: "User not found" } );
         }
@@ -116,10 +116,11 @@ const rankingPlayersAndAverage = async (req, res) => {
 
     try {
 
-        const userRanking = await Users.find({},{ name: 1, successRate: 1 }.sort({ successRate: -1 }));
-        const avgGlobal = await Users.aggregate([{ $group: { _id: '_id', $avg: { $successRate }}}]);
-        userRanking.avgGlobal = avgGlobal;
-        res.status( 201 ).json({ rankingPlayersAndGlobalAverage: userRanking });
+        const userRanking = await Users.find({},{ name: 1, successRate: 1, _id: 0 }).sort({ successRate: -1 });
+        const avgGlobal = await Users.aggregate([{ $group: { _id: '_id', successRateAvg: { $avg: '$successRate' } } } ]);
+        
+        res.status( 201 ).json({ rankingPlayers: userRanking, GlobalAverage: avgGlobal[0].successRateAvg });
+        //res.status( 201 ).json({ GlobalAverage: avgGlobal[0].successRateAvg });
 
     } catch (err) { res.status( 500 ).json( { error: err } ); }
 }
@@ -130,7 +131,7 @@ const looser = async (req, res) => {
 
     try {
 
-        const userLooser = await Users.find({},{ name: 1, successRate: 1 }.sort({ successRate: 1 }).limit(1));
+        const userLooser = await Users.find({},{ name: 1, successRate: 1, _id: 0 }).sort({ successRate: 1 }).limit(1);
         
         res.status( 201 ).json({ looser: userLooser });
 
@@ -143,7 +144,7 @@ const winner = async (req, res) => {
 
     try {
 
-        const userWinner = await Users.find({},{ name: 1, successRate: 1 }.sort({ successRate: -1 }).limit(1));
+        const userWinner = await Users.find({},{ name: 1, successRate: 1, _id: 0 }).sort({ successRate: -1 }).limit(1);
         
         res.status( 201 ).json({ winner: userWinner });
 
