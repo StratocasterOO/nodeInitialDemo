@@ -3,7 +3,7 @@ const path = require("path");
 
 const storage = multer.diskStorage({
 destination: (req, file, cb) => {
-  cb(null, "uploads");
+  cb(null, "img");
   },
   filename: (req, file, cb) => {
   cb(null, file.fieldname + path.extname(file.originalname) );
@@ -19,10 +19,10 @@ const fileFilter = (req, file, cb) => {
   ) {
   cb(null, true);
   } else {
-  cb(new Error("File format should be PNG,JPG,JPEG,GIF"), false);
+  cb(new Error("File format should be PNG, JPG, JPEG, GIF"), false);
   }
 };
 
-const uploadImage = multer({ storage: storage, fileFilter: fileFilter });
+const uploadImage = multer({ storage, fileFilter });
 
 module.exports = uploadImage;

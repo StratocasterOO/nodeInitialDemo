@@ -20,7 +20,7 @@ const auth = new Buffer.from(authHeader.split(' ')[1], 'base64').toString().spli
 //console.log(auth)
 const user = auth[0];
 const pass = auth[1];
-  if (user == 'admin' && pass =='12345') {
+  if (user == 'admin' && pass =='1234') {
       next();
 
   }else{

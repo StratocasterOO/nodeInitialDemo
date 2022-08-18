@@ -1,14 +1,15 @@
 const express = require('express');
-const moment = require('moment')
+const moment = require('moment');
 const routerTime = express.Router();
+const { authentication } = require('../middlewares/middleware');
 
 const userTime = function (req, res) {
-  req.requestTime = Date.now();
-  const user = req.body.name
-  const date = moment(req.requestTime).format('MMMM d, YYYY')
-  res.json({ user, date })
+  const user = req.body.name;
+  moment.locale('es')
+  const date = moment().format('LLLL');
+  res.json({ user, date });
 }
 
-routerTime.post('/', userTime);
+routerTime.post('/time', authentication, userTime);
 
 module.exports = routerTime
