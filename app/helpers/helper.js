@@ -1,12 +1,16 @@
 const multer = require("multer");
+const moment = require('moment');
 const path = require("path");
+
+moment.locale('es')
+const date = moment().format().slice( 0, 16 );
 
 const storage = multer.diskStorage({
 destination: (req, file, cb) => {
   cb(null, "img");
   },
   filename: (req, file, cb) => {
-  cb(null, file.fieldname + path.extname(file.originalname) );
+  cb(null, file.fieldname + '_' + date + path.extname(file.originalname) );
   },
 });
   
